@@ -13,13 +13,35 @@
             box-sizing: border-box;
         }
 
-        body {
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        body::before,
+        body::after {
+            display: none;
+        }
+
+        /* Ensure no white space at top */
+        body > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0;
+        }
+
+        .top-bar {
+            margin-top: 0 !important;
+            padding-top: 8px;
+        }
+
+        html, body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #333;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            height: 100%;
         }
 
         .container {
@@ -28,194 +50,254 @@
             padding: 0 20px;
         }
 
-        /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.1);
+        /* Remove any default browser spacing */
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+
+        /* Top Contact Bar */
+        .top-bar {
+            background: linear-gradient(135deg, #c62828, #b71c1c);
             color: white;
-            padding: 15px 0;
-            position: fixed;
+            padding: 8px 0;
+            font-size: 14px;
+            position: relative;
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            margin: 0;
+            border: none;
         }
 
-        .header.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(20px);
-            border-bottom: none;
-            display: none;
-        }
-
-        .header.scrolled .logo,
-        .header.scrolled .nav-menu a {
-            color: black;
-            background-color: #000000 !important;
-        }
-
-        .header.scrolled .dealer-link {
-            color: #333;
-        }
-
-        .nav {
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .contact-info {
+    width: 100%;
+    max-width: none;
+}
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
         }
 
         .logo {
-            font-size: 36px;
-            font-weight: 900;
-            color: black;
+            font-size: 28px;
+            font-weight: bold;
+            color: #c62828;
             text-decoration: none;
-            background: white;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            
         }
 
-        .nav-menu {
+        .main-nav {
             display: flex;
             list-style: none;
-            gap: 40px;
+            gap: 5px;
+            align-items: center;
         }
-        
 
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        .nav-item {
             position: relative;
-            padding: 8px 0;
         }
 
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: rgb(255, 69, 0);
-            transition: width 0.3s ease;
+        .nav-link {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: color 0.3s;
         }
 
-        .nav-menu a:hover::after {
-            width: 100%;
+        .nav-link:hover {
+            color: #c62828;
         }
 
-        .nav-menu a:hover {
-            transform: translateY(-2px);
-        }
-
-        .nav-menu a.cta-btn {
-            background: rgb(255, 69, 0);
+        .btn-primary {
+            background: #c62828;
             color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: 700;
-            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .nav-menu a.cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 69, 0, 0.4);
-        }
-
-        .nav-menu a.cta-btn::after {
-            display: none;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .dealer-link {
-            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
             text-decoration: none;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            transition: background 0.3s;
         }
 
-        .dealer-link:hover {
-            transform: scale(1.05);
+        .btn-primary:hover {
+            background: #b71c1c;
+        }
+
+        /* Mega Menu */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            margin-top: 5px;
+        }
+
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mega-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .mega-section h3 {
+            color: #c62828;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-bottom: 2px solid #c62828;
+            padding-bottom: 8px;
+        }
+
+        .mega-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .mega-links {
+            list-style: none;
+        }
+
+        .mega-links li {
+            margin-bottom: 8px;
+        }
+
+        .mega-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .mega-links a:hover {
+            color: #c62828;
+        }
+
+        .mega-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .mega-info h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .mega-info p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .mega-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #c62828;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #666;
         }
 
         .hamburger {
             background: none;
             border: none;
-            color: white;
+            color: #333;
             font-size: 20px;
             cursor: pointer;
             display: none;
         }
 
-        /* Secondary Navigation */
-        .secondary-nav {
-            background: rgba(255, 255, 255, 0.98);
-            padding: 20px 0;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 999;
-            transform: translateY(-150%);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
-            opacity: 0;
-            visibility: hidden;
-            color: black;
-        }
-
-        .secondary-nav.show {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .secondary-nav .nav {
-            justify-content: flex-start;
-        }
-
-        .secondary-nav .logo {
-            color: #000000;
-            margin-right: 60px;
-            font-size: 28px;
-        }
-
-        .secondary-nav .nav-menu {
-            gap: 40px;
-        }
-
-        .secondary-nav .nav-menu a {
-            color: #333;
-            font-weight: 600;
-        }
-
-        
-
         /* Hero Section */
         .hero {
-            height: 100vh;
-            background:  url('https://www.autoservis-garant.cz/wp-content/uploads/2016/01/autoservis-garant-praha-ford-bmw-kia-toyota-volvo.jpg=imgopt-q75') center/cover;
+            height: 95vh;
+            background: url('https://www.autoservis-garant.cz/wp-content/uploads/2016/01/autoservis-garant-praha-ford-bmw-kia-toyota-volvo.jpg') center/cover;
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 60px 60px;
+          /*  border-radius: 0 0 60px 60px;*/
             margin-bottom: 60px;
         }
 
@@ -476,7 +558,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(135deg, #ff0000, #ff0000);
+            
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
@@ -697,7 +779,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(135deg, #ff4500, #ff6500);
+             
         }
 
         .tech-card:hover {
@@ -773,7 +855,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(135deg, #ff4500, #ff6500);
+             
         }
 
         .team-member:hover {
@@ -1041,6 +1123,130 @@
             fill: currentColor;
         }
 
+        /* Contact & Map Section */
+        .contact-map {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .contact-map .tech-header {
+            color: #333; /* Ensure text color is dark on white background */
+        }
+
+        .contact-map .tech-header p {
+            color: #4a5568; /* Match paragraph text color */
+        }
+
+        .contact-map-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+        .contact-info {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    padding: 60px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    
+}
+
+        .contact-info h4 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+        }
+
+        .contact-info p {
+    font-size: 18px;
+    color: #2d3748;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    transition: all 0.3s ease;
+}
+
+.contact-info p:hover {
+    background: rgba(255, 69, 0, 0.03);
+    border-radius: 12px;
+    padding-left: 20px;
+    transform: translateX(5px);
+}
+
+        .contact-info .working-hours {
+            margin-top: 30px;
+            margin-bottom: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .contact-info .working-hours h5 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        .contact-info .working-hours p {
+            margin-bottom: 0;
+            font-size: 16px;
+            gap: 0;
+        }
+
+        .contact-call-btn {
+    background: linear-gradient(135deg, #ff4500 0%, #ff0000 100%);
+    box-shadow: 0 15px 35px rgba(255, 69, 0, 0.3);
+    border-radius: 20px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-call-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.contact-call-btn:hover::before {
+    left: 100%;
+}
+
+.contact-call-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 25px 50px rgba(255, 69, 0, 0.4);
+}
+
+.map-container {
+    height: 400px;
+    width: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .specs-grid {
@@ -1050,6 +1256,10 @@
             .hero-text h1 {
                 font-size: 62px;
             }
+
+            .mega-menu {
+                width: 700px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1057,7 +1267,7 @@
                 display: block;
             }
             
-            .nav-menu {
+            .main-nav {
                 display: none;
             }
             
@@ -1111,12 +1321,46 @@
                 gap: 40px;
             }
 
-            .secondary-nav {
-                top: 70px;
-            }
-
             .container {
                 padding: 0 15px;
+            }
+
+            .mega-menu {
+                position: static;
+                width: 100%;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                margin-top: 10px;
+                border-radius: 5px;
+            }
+
+            .nav-item:hover .mega-menu {
+                display: block;
+            }
+
+            .mega-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+                font-size: 12px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
             }
         }
 
@@ -1141,138 +1385,162 @@
         .spec-card:nth-child(2) { animation-delay: 0.1s; }
         .spec-card:nth-child(3) { animation-delay: 0.2s; }
         .spec-card:nth-child(4) { animation-delay: 0.3s; }
-
-
-
-        /* Contact & Map Section */
-.contact-map {
-    padding: 120px 0;
-    background: white;
-}
-
-.contact-map .tech-header {
-    color: #333; /* Ensure text color is dark on white background */
-}
-
-.contact-map .tech-header p {
-    color: #4a5568; /* Match paragraph text color */
-}
-
-.contact-map-content {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 80px;
-    align-items: center;
-}
-
-.contact-info {
-    background: #f8fafc;
-    padding: 50px;
-    border-radius: 25px;
-    border: 1px solid #e2e8f0;
-}
-
-.contact-info h4 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #2d3748;
-    margin-bottom: 30px;
-}
-
-.contact-info p {
-    font-size: 17px;
-    color: #4a5568;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.contact-info .working-hours {
-    margin-top: 30px;
-    margin-bottom: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #e2e8f0;
-}
-
-.contact-info .working-hours h5 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #2d3748;
-    margin-bottom: 10px;
-}
-.contact-info .working-hours p {
-    margin-bottom: 0;
-    font-size: 16px;
-    gap: 0;
-}
-
-.contact-call-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    font-size: 18px;
-    padding: 20px 30px;
-}
-
-.map-container {
-    height: 550px;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-}
-
-
     </style>
 </head>
 <body>
-    <!-- Header -->
+    
+
+    <!-- Main Header -->
     <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="#" class="logo">AD TECHNIK</a>
-                <ul class="nav-menu">
-                    <li><a href="#">DIAGNOSTIKA</a></li>
-                    <li><a href="#">VYBAVENÍ</a></li>
-                    <li><a href="#">SERVIS</a></li>
-                    <li><a href="#">REFERENCE</a></li>
-                    <li><a href="#">CENÍK</a></li>
-                    <li><a href="#" class="cta-btn">Kontakt</a></li>
+        <div class="header-content">
+            <a href="#" class="logo">AD TECHNIK</a>
+            <nav>
+                <ul class="main-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">OSOBNÍ AUTOMOBILY</a>
+                        <div class="mega-menu">
+                            <div class="mega-content">
+                                <div class="mega-section">
+                                    <div class="mega-image">Inspekční technika</div>
+                                    <h3>Inspekce a diagnostika</h3>
+                                    <ul class="mega-links">
+                                        <li><a href="#">Emisní měření</a></li>
+                                        <li><a href="#">Technická kontrola</a></li>
+                                        <li><a href="#">Bezpečnostní prvky</a></li>
+                                        <li><a href="#">OBD diagnostika</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-info">
+                                        <h4>Geometrie a vyvažování</h4>
+                                        <p>Nejmodernější systémy pro přesné měření geometrie kol a profesionální vyvažování pneumatik.</p>
+                                    </div>
+                                    <ul class="mega-links">
+                                        <li><a href="#">3D geometrie kol</a></li>
+                                        <li><a href="#">Laserová geometrie</a></li>
+                                        <li><a href="#">Automatické vyvažovačky</a></li>
+                                        <li><a href="#">Montážní stroje</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-image">Moderní autoservis</div>
+                                    <div class="mega-stats">
+                                        <div class="stat-box">
+                                            <div class="stat-number">25+</div>
+                                            <div class="stat-label">let zkušeností</div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <div class="stat-number">500+</div>
+                                            <div class="stat-label">instalací</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">NÁKLADNÍ AUTOMOBILY / BUS / AGRO</a>
+                        <div class="mega-menu">
+                            <div class="mega-content">
+                                <div class="mega-section">
+                                    <div class="mega-image">Hydraulické zvedáky</div>
+                                    <h3>Zvedáky a manipulace</h3>
+                                    <ul class="mega-links">
+                                        <li><a href="#">Hydraulické sloupové</a></li>
+                                        <li><a href="#">Mechanické sloupové</a></li>
+                                        <li><a href="#">Zapuštěné do podlahy</a></li>
+                                        <li><a href="#">Plošinové zvedáky</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-info">
+                                        <h4>Klimatizace a brzdy</h4>
+                                        <p>Kompletní vybavení pro servis klimatizací a diagnostiku brzdových systémů nákladních vozidel.</p>
+                                    </div>
+                                    <ul class="mega-links">
+                                        <li><a href="#">Plnění klimatizací</a></li>
+                                        <li><a href="#">Testování brzd</a></li>
+                                        <li><a href="#">Brzdicí stanice</a></li>
+                                        <li><a href="#">Kamerová geometrie</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-image">Nákladní vozidla</div>
+                                    <div class="mega-stats">
+                                        <div class="stat-box">
+                                            <div class="stat-number">50t</div>
+                                            <div class="stat-label">max. nosnost</div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <div class="stat-number">24/7</div>
+                                            <div class="stat-label">servis</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">KOLEJOVÁ VOZIDLA</a>
+                        <div class="mega-menu">
+                            <div class="mega-content">
+                                <div class="mega-section">
+                                    <div class="mega-image">Kolejová technika</div>
+                                    <h3>Speciální řešení</h3>
+                                    <ul class="mega-links">
+                                        <li><a href="#">Kolejové zvedáky</a></li>
+                                        <li><a href="#">Geometrie kolejových vozidel</a></li>
+                                        <li><a href="#">Speciální inspekce</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-info">
+                                        <h4>Železniční průmysl</h4>
+                                        <p>Speciální vybavení pro údržbu a servis železničních vozidel a kolejové infrastruktury.</p>
+                                    </div>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-image">Železniční depo</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">MONTÁŽNÍ JÁMY</a>
+                        <div class="mega-menu">
+                            <div class="mega-content">
+                                <div class="mega-section">
+                                    <div class="mega-image">Montážní jáma</div>
+                                    <h3>Jámy a karosárna</h3>
+                                    <ul class="mega-links">
+                                        <li><a href="#">Karosářské jámy</a></li>
+                                        <li><a href="#">Montážní systémy</a></li>
+                                        <li><a href="#">Speciální vybavení</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-info">
+                                        <h4>Projektování a instalace</h4>
+                                        <p>Kompletní řešení od návrhu až po dokončení montážních jam pro autoservisy.</p>
+                                    </div>
+                                </div>
+                                <div class="mega-section">
+                                    <div class="mega-image">Karosárna</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item"><a href="#" class="btn-primary">Poslat dotaz</a></li>
                 </ul>
-                <div class="nav-actions">
-                    <a href="tel:+420272072331" class="dealer-link">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
-                        </svg>
-                        +420 272 072 331
-                    </a>
-                    <button class="hamburger">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-                        </svg>
-                    </button>
-                </div>
             </nav>
+            <button class="hamburger">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
         </div>
     </header>
-
-    <!-- Secondary Navigation -->
-    <nav class="secondary-nav">
-        <div class="container">
-            <div class="nav">
-                <a href="#" class="logo" style="background-color: black !important;">AD TECHNIK</a>
-                <ul class="nav-menu">
-                    <li><a href="#" class="active">Diagnostika</a></li>
-                    <li><a href="#">Vybavení</a></li>
-                    <li><a href="#">Servis</a></li>
-                    <li><a href="#">O nás</a></li>
-                    <li><a href="#">Kontakt</a></li>
-                    <li><a href="#">Katalog</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1453,7 +1721,6 @@
         </div>
     </section>
 
-
     <section class="contact-map" id="kontakt">
         <div class="container">
             <div class="tech-header">
@@ -1522,7 +1789,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- FAQ Section -->
     <section class="faq">
@@ -1609,9 +1875,6 @@
         </div>
     </section>
 
-    <!-- Footer CTA -->
-   
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1686,17 +1949,27 @@
     </footer>
 
     <script>
-        // Navigation scroll effect
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header');
-            const secondaryNav = document.querySelector('.secondary-nav');
-            
-            if (window.scrollY > 200) {
-                header.classList.add('scrolled');
-                secondaryNav.classList.add('show');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.2)';
             } else {
-                header.classList.remove('scrolled');
-                secondaryNav.classList.remove('show');
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
             }
         });
 
@@ -1718,20 +1991,6 @@
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 100);
-        });
-
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
         });
     </script>
 </body>
